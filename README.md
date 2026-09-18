@@ -22,30 +22,16 @@ Predict the output using the trained model and evaluate the result.
 
 ## Program:
 ```
-import numpy as np
-import matplotlib.pyplot as plt
-
-X = np.array(eval(input()))
-Y = np.array(eval(input()))
-
-Xmean = np.mean(X)
-Ymean = np.mean(Y)
-num,den = 0,0
-for i in range(len(X)):
-    num += (X[i]-Xmean)*(Y[i]-Ymean)
-    den += (X[i]-Xmean)**2
-slope = num/den
-c = Ymean-slope*Xmean
-    
-print (slope, c)
-
-Y_pred = slope*X + c
-print (Y_pred)
-
-plt.scatter(X,Y)
-plt.plot(X,Y_pred,color="pink")
-plt.show()
-
+import pandas as pd
+from sklearn import linear_model
+df = pd.read_csv("carsemission.csv")
+X = df[['Weight', 'Volume']]
+y = df['CO2']
+regression = linear_model.LinearRegression()
+regression.fit(X, y)
+print(regression.coef_)
+print(regression.intercept_)
+print("Predicted value:",regression.predict([[3300,1300]]))
 
 
 
@@ -53,7 +39,7 @@ plt.show()
 
 ```
 ## Output:
-![alt text](<Screenshot 2026-09-05 090056.png>)
+![alt text](<Screenshot 2026-09-03 122731.png>)
 ### Insert your output
 
 
